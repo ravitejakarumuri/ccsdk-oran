@@ -50,13 +50,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: "https://gerrit.o-ran-sc.org/r/nonrtric"
-          ref: "main"
-
       - name: Run FTC job
         working-directory: ${{ github.workspace }}/test/auto-test
         run: |
+          git clone https://gerrit.o-ran-sc.org/r/nonrtric
+          cd nonrtric/test/auto-test
           chmod +x ./verify-jobs-nonrtric.sh
           sudo bash ./verify-jobs-nonrtric.sh
