@@ -1,0 +1,62 @@
+name: oran-functional-test-case
+
+on:
+#  pull_request:
+#    branches:
+#      - main
+  workflow_dispatch:
+    # For Branch-Protection check. Only the default branch is supported. See
+    # https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
+    inputs:
+      GERRIT_BRANCH:
+        description: 'Branch that change is against'
+        required: true
+        type: string
+      GERRIT_CHANGE_ID:
+        description: 'The ID for the change'
+        required: true
+        type: string
+      GERRIT_CHANGE_NUMBER:
+        description: 'The Gerrit number'
+        required: true
+        type: string
+      GERRIT_CHANGE_URL:
+        description: 'URL to the change'
+        required: true
+        type: string
+      GERRIT_EVENT_TYPE:
+        description: 'Gerrit event type'
+        required: true
+        type: string
+      GERRIT_PATCHSET_NUMBER:
+        description: 'The patch number for the change'
+        required: true
+        type: string
+      GERRIT_PATCHSET_REVISION:
+        description: 'The revision sha'
+        required: true
+        type: string
+      GERRIT_PROJECT:
+        description: 'Project in Gerrit'
+        required: true
+        type: string
+      GERRIT_REFSPEC:
+        description: 'Gerrit refspec of change'
+        required: true
+        type: string
+
+jobs:
+  ftc-run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: "https://gerrit.o-ran-sc.org/r/nonrtric"
+          ref: "main"
+
+      - name: Run FTC job
+        working-directory: ${{ github.workspace }}/test/auto-test
+        run: |
+          chmod +x ./verify-jobs-nonrtric.sh
+          sudo bash ./verify-jobs-nonrtric.sh
