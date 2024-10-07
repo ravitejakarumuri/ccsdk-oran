@@ -54,7 +54,8 @@ jobs:
       - name: Checkout Maven Project Repository
         uses: actions/checkout@v2
         with:
-          repository: git@github.com:onap/ccsdk-oran.git  # Replace with your Maven project repo
+          repository: git@github.com:ravitejakarumuri/ccsdk-oran.git  # Replace with your Maven project repo
+          ref: main
 #          token: ${{ secrets.GITHUB_TOKEN }}      # Use GitHub token for access
 
       # Step 2: Set up JDK for Maven
