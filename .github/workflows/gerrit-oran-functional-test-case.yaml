@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Run FTC job
-        working-directory: ${{ github.workspace }}/test/auto-test
+       # working-directory: ${{ github.workspace }}/test/auto-test
         run: |
           git clone https://gerrit.o-ran-sc.org/r/nonrtric
           cd nonrtric/test/auto-test
