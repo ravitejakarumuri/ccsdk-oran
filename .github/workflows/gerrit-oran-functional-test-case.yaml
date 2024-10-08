@@ -61,7 +61,7 @@ jobs:
       - name: Use settings.xml from oparent repository
         run: |
           mkdir -p ~/.m2
-          cp settings.xml ~/.m2/settings.xml  # Adjust path as needed
+          cp oparent/settings.xml ~/.m2/settings.xml  
 
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
