@@ -10,7 +10,7 @@ on:
     inputs:
       GERRIT_BRANCH:
         description: 'Branch that change is against'
-        required: true
+        required: false
         type: string
 #      GERRIT_CHANGE_ID:
 #        description: 'The ID for the change'
@@ -20,10 +20,10 @@ on:
 #        description: 'The Gerrit number'
 #        required: true
 #        type: string
-#      GERRIT_CHANGE_URL:
-#        description: 'URL to the change'
-#        required: true
-#        type: string
+      GERRIT_CHANGE_URL:
+        description: 'URL to the change'
+        required: true
+        type: string
 #      GERRIT_EVENT_TYPE:
 #        description: 'Gerrit event type'
 #        required: true
@@ -36,14 +36,14 @@ on:
 #        description: 'The revision sha'
 #        required: true
 #        type: string
-#      GERRIT_PROJECT:
-#        description: 'Project in Gerrit'
-#        required: true
-#        type: string
-#      GERRIT_REFSPEC:
-#        description: 'Gerrit refspec of change'
-#        required: true
-#        type: string
+      GERRIT_PROJECT:
+        description: 'Project in Gerrit'
+        required: false
+        type: string
+      GERRIT_REFSPEC:
+        description: 'Gerrit refspec of change'
+        required: false
+        type: string
 
 jobs:
   ftc-run:
@@ -52,11 +52,12 @@ jobs:
     steps:
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
-        uses: actions/checkout@v2
+        uses: lfit/checkout-gerrit-change-action@v0.5
         with:
-          repository: ravitejakarumuri/ccsdk-oran.git  # Replace with your Maven project repo
-          ref: main
-#          token: ${{ secrets.GITHUB_TOKEN }}      # Use GitHub token for access
+          gerrit-refspec: ${{ inputs.GERRIT_REFSPEC }}
+          gerrit-url: ${{ inputs.GERRIT_CHANGE_URL }}
+          gerrit-project: ${{ inputs.GERRIT_PROJECT }}
+          ref: master
 
       # Step 2: Set up JDK for Maven
       - name: Set up JDK 17
