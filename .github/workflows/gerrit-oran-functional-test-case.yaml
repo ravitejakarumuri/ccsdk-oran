@@ -61,6 +61,8 @@ jobs:
       - name: Use settings.xml from oparent repository
         run: |
           mkdir -p ~/.m2
+          pwd
+          ls -latr
           cp oparent/settings.xml ~/.m2/settings.xml  
 
       # Step 1: Checkout the repository to build
