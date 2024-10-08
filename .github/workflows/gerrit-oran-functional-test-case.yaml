@@ -61,7 +61,7 @@ jobs:
       - name: Use settings.xml from oparent repository
         run: |
           mkdir -p ~/.m2
-          cp oparent/settings.xml ~/.m2/settings.xml  
+          cp ${{ github.workspace }}/oparent/settings.xml ~/.m2/settings.xml  
 
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
