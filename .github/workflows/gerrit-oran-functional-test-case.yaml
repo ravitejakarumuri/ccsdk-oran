@@ -58,8 +58,8 @@ jobs:
           cd oparent
           echo "--------------- Maven verison --------------------"
           echo $MAVEN_HOME
-          echo "-------- root path --------"
-          ls -latr ~
+          echo "-------- root path and .m2 --------"
+          ls -latr ~/.m2
           echo "------- root files list end -----------"
           mvn -v
           mkdir -p ~/.m2
@@ -94,7 +94,7 @@ jobs:
       # Step 3: Run Maven build
       - name: Build with Maven
         run: |
-          mvn clean install
+          mvn clean install -s ~/.m2/settings.xml
 
       # Step 4: Build Docker image
       - name: Build Docker image
