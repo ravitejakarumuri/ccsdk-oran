@@ -58,7 +58,6 @@ jobs:
           cd oparent
           echo "--------------- Maven verison --------------------"
           echo $MAVEN_HOME
-          cat ~/.m2/settings.xml
           echo "-------- root path --------"
           ls -latr ~
           echo "------- root files list end -----------"
