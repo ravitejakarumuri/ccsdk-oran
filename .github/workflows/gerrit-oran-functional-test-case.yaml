@@ -73,7 +73,10 @@ jobs:
            ls -latr /home/runner/
           echo "-------------- end ----------"
           ls -ltr ~
-          cp ./settings.xml ~/.m2/settings.xml  
+          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml 
+          echo "------------- printing the settings xml content ---------"
+          ls -ltar /usr/share/apache-maven-3.8.8/conf
+          cat /usr/share/apache-maven-3.8.8/conf/settings.xml
 
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
