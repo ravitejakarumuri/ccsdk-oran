@@ -64,6 +64,8 @@ jobs:
           pwd
           ls -latr
           ls -latr /home/runner/work
+          echo "--------------"
+          ls -ltr ~
           cp oparent/settings.xml ~/.m2/settings.xml  
 
       # Step 1: Checkout the repository to build
