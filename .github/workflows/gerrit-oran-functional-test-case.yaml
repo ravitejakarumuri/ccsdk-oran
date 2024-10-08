@@ -56,7 +56,12 @@ jobs:
           rm -rf ./*
           git clone "https://gerrit.onap.org/r/oparent"
           cd oparent
-          echo "Maven verison"
+          echo "--------------- Maven verison --------------------"
+          echo $MAVEN_HOME
+          cat ~/.m2/settings.xml
+          echo "-------- root path --------"
+          ls -latr ~
+          echo "------- root files list end -----------"
           mvn -v
           mkdir -p ~/.m2
           pwd
