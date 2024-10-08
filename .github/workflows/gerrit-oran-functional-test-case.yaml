@@ -56,7 +56,7 @@ jobs:
           rm -rf ./*
           git clone "https://gerrit.onap.org/r/oparent"
           cd oparent
-          mkdir -p ~/.m2
+          # mkdir -p ~/.m2
           pwd
           ls -latr
           echo "-------------- /home/runner/work ------------"
