@@ -1,9 +1,9 @@
 name: oran-functional-test-case
 
 on:
-#  pull_request:
-#    branches:
-#      - main
+  #  pull_request:
+  #    branches:
+  #      - main
   workflow_dispatch:
     # For Branch-Protection check. Only the default branch is supported. See
     # https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
@@ -12,30 +12,30 @@ on:
         description: 'Branch that change is against'
         required: false
         type: string
-#      GERRIT_CHANGE_ID:
-#        description: 'The ID for the change'
-#        required: true
-#        type: string
-#      GERRIT_CHANGE_NUMBER:
-#        description: 'The Gerrit number'
-#        required: true
-#        type: string
+      #      GERRIT_CHANGE_ID:
+      #        description: 'The ID for the change'
+      #        required: true
+      #        type: string
+      #      GERRIT_CHANGE_NUMBER:
+      #        description: 'The Gerrit number'
+      #        required: true
+      #        type: string
       GERRIT_CHANGE_URL:
         description: 'URL to the change'
         required: false
         type: string
-#      GERRIT_EVENT_TYPE:
-#        description: 'Gerrit event type'
-#        required: true
-#        type: string
-#      GERRIT_PATCHSET_NUMBER:
-#        description: 'The patch number for the change'
-#        required: true
-#        type: string
-#      GERRIT_PATCHSET_REVISION:
-#        description: 'The revision sha'
-#        required: true
-#        type: string
+      #      GERRIT_EVENT_TYPE:
+      #        description: 'Gerrit event type'
+      #        required: true
+      #        type: string
+      #      GERRIT_PATCHSET_NUMBER:
+      #        description: 'The patch number for the change'
+      #        required: true
+      #        type: string
+      #      GERRIT_PATCHSET_REVISION:
+      #        description: 'The revision sha'
+      #        required: true
+      #        type: string
       GERRIT_PROJECT:
         description: 'Project in Gerrit'
         required: false
@@ -50,6 +50,19 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      # Step 2: Check out the oparent repository that contains the settings.xml
+      - name: Checkout settings repository
+        uses: lfit/checkout-gerrit-change-action@v0.5
+        with:
+          gerrit-url: "https://gerrit.onap.org/r/a/oparent"
+          ref: master
+      
+      # Step 3: Copy the settings.xml from the oparent repository to the Maven settings directory
+      - name: Use settings.xml from oparent repository
+        run: |
+          mkdir -p ~/.m2
+          cp settings.xml ~/.m2/settings.xml  # Adjust path as needed
+
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
         uses: lfit/checkout-gerrit-change-action@v0.5
@@ -79,7 +92,7 @@ jobs:
 
       # Step 5: Run FTC Job
       - name: Run FTC job
-       # working-directory: ${{ github.workspace }}/test/auto-test
+        # working-directory: ${{ github.workspace }}/test/auto-test
         run: |
           git clone https://gerrit.o-ran-sc.org/r/nonrtric
           cd nonrtric/test/auto-test
