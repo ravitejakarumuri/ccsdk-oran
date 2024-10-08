@@ -58,11 +58,11 @@ jobs:
           cd oparent
           echo "--------------- Maven verison --------------------"
           echo $MAVEN_HOME
-          echo "-------- root path and .m2 --------"
-          ls -latr ~/.m2
           echo "------- root files list end -----------"
           mvn -v
           mkdir -p ~/.m2
+          echo "-------- root path and .m2 --------"
+          ls -latr ~/.m2
           pwd
           ls -latr
           echo "-------------- /home/runner/work ------------"
