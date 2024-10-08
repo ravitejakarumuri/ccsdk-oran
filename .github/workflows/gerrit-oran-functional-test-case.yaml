@@ -63,8 +63,13 @@ jobs:
           mkdir -p ~/.m2
           pwd
           ls -latr
+          echo "-------------- /home/runner/work ------------"
           ls -latr /home/runner/work
-          echo "--------------"
+          echo "-------------- /home/runner/work/ccsdk-oran------------"
+           ls -latr /home/runner/work/ccsdk-oran
+          echo "-------------- /home/runner/ ------------"
+           ls -latr /home/runner/
+          echo "-------------- end ----------"
           ls -ltr ~
           cp oparent/settings.xml ~/.m2/settings.xml  
 
