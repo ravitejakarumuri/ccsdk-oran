@@ -54,14 +54,14 @@ jobs:
       - name: Checkout settings repository
         uses: lfit/checkout-gerrit-change-action@v0.5
         with:
-          gerrit-url: "https://gerrit.onap.org/r/a/oparent"
+          gerrit-url: "https://gerrit.onap.org/r/oparent"
           ref: master
       
       # Step 3: Copy the settings.xml from the oparent repository to the Maven settings directory
       - name: Use settings.xml from oparent repository
         run: |
           mkdir -p ~/.m2
-          cp ${{ github.workspace }}/oparent/settings.xml ~/.m2/settings.xml  
+          cp oparent/settings.xml ~/.m2/settings.xml  
 
       # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
