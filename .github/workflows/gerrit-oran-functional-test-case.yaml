@@ -50,17 +50,18 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      # Step 3: Copy the settings.xml from the oparent repository to the Maven settings directory
+      # Step 1: Copy the settings.xml from the oparent repository to the Maven settings directory
       - name: Use settings.xml from oparent repository
         run: |
           rm -rf ./*
           git clone "https://gerrit.onap.org/r/oparent"
           cd oparent
+          mkdir -p ~/.m2
+          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml
 #          echo "--------------- Maven verison --------------------"
 #          echo $MAVEN_HOME
 #          echo "------- root files list end -----------"
 #          mvn -v
-          mkdir -p ~/.m2
 #          echo "-------- root path and .m2 --------"
 #          ls -latr ~/.m2
 #          pwd
@@ -73,12 +74,12 @@ jobs:
 #           ls -latr /home/runner/
 #          echo "-------------- end ----------"
 #          ls -ltr ~
-          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml 
+#          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml
 #          echo "------------- printing the settings xml content ---------"
 #          ls -ltar /usr/share/apache-maven-3.8.8/conf
 #          cat /usr/share/apache-maven-3.8.8/conf/settings.xml
 
-      # Step 1: Checkout the repository to build
+      # Step 2: Checkout the repository to build
       - name: Checkout Maven Project Repository
         uses: lfit/checkout-gerrit-change-action@v0.5
         with:
@@ -87,31 +88,31 @@ jobs:
           gerrit-project: ${{ inputs.GERRIT_PROJECT }}
           ref: ${{ inputs.GERRIT_BRANCH }}
 
-      # Step 2: Set up JDK for Maven
+      # Step 3: Set up JDK for Maven
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'  # Or 'zulu' or 'temurin'
 
-      # Step 3: Run Maven build
+      # Step 4: Run Maven build
       - name: print docker image before
         run: |
           echo " printing docker images before"
           docker images 
 
-      # Step 3: Run Maven build
+      # Step 5: Run Maven build
       - name: Build with Maven
         run: |
           mvn clean install -s ~/.m2/settings.xml -DskipTests=true
       
-      # Step 3: Run Maven build
+      # Step 6: Run Maven build
       - name: print docker image
         run: |
           echo " printing docker images"
           docker images
 
-      # Step 5: Run FTC Job
+      # Step 7: Run FTC Job
       - name: Run FTC job
         # working-directory: ${{ github.workspace }}/test/auto-test
         run: |
