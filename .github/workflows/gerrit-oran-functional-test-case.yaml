@@ -50,35 +50,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      # Step 1: Copy the settings.xml from the oparent repository to the Maven settings directory
-      - name: Use settings.xml from oparent repository
-        run: |
-          rm -rf ./*
-          git clone "https://gerrit.onap.org/r/oparent"
-          cd oparent
-          mkdir -p ~/.m2
-          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml
-#          echo "--------------- Maven verison --------------------"
-#          echo $MAVEN_HOME
-#          echo "------- root files list end -----------"
-#          mvn -v
-#          echo "-------- root path and .m2 --------"
-#          ls -latr ~/.m2
-#          pwd
-#          ls -latr
-#          echo "-------------- /home/runner/work ------------"
-#          ls -latr /home/runner/work
-#          echo "-------------- /home/runner/work/ccsdk-oran------------"
-#           ls -latr /home/runner/work/ccsdk-oran
-#          echo "-------------- /home/runner/ ------------"
-#           ls -latr /home/runner/
-#          echo "-------------- end ----------"
-#          ls -ltr ~
-#          cp -f ./settings.xml /usr/share/apache-maven-3.8.8/conf/settings.xml
-#          echo "------------- printing the settings xml content ---------"
-#          ls -ltar /usr/share/apache-maven-3.8.8/conf
-#          cat /usr/share/apache-maven-3.8.8/conf/settings.xml
-
       # Step 2: Checkout the repository to build
       - name: Checkout Maven Project Repository
         uses: lfit/checkout-gerrit-change-action@v0.5
@@ -104,7 +75,7 @@ jobs:
       # Step 5: Run Maven build
       - name: Build with Maven
         run: |
-          mvn clean install -s ~/.m2/settings.xml -DskipTests=true
+          mvn clean install -DskipTests=true
       
       # Step 6: Run Maven build
       - name: print docker image
