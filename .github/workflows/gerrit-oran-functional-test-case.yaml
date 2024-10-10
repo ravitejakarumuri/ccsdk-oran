@@ -91,7 +91,19 @@ jobs:
           git clone https://gerrit.o-ran-sc.org/r/nonrtric
           cd nonrtric/test/auto-test
           git pull https://gerrit.o-ran-sc.org/r/nonrtric refs/changes/64/13564/3
+          echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+          ls -ltr
+          echo "**************************"
+          pwd
+          echo "**************************"
+          echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
           chmod +x ./onap-verify-jobs.sh
+          echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+          ls -ltr
+          echo "**************************"
+          pwd
+          echo "****************************"
+          echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
           sudo bash ./onap-verify-jobs
           
       # Step 8: Run Maven build
