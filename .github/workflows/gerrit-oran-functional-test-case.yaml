@@ -64,7 +64,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'  # Or 'zulu' or 'temurin'
+          distribution: 'temurin'  # Or 'zulu' or 'adopt'
 
       # Step 4: Run Maven build
       - name: print docker image before
