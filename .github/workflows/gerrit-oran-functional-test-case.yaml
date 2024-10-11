@@ -12,10 +12,10 @@ on:
         description: 'Branch that change is against'
         required: false
         type: string
-      #      GERRIT_CHANGE_ID:
-      #        description: 'The ID for the change'
-      #        required: true
-      #        type: string
+      GERRIT_CHANGE_ID:
+        description: 'The ID for the change'
+        required: false
+        type: string
       #      GERRIT_CHANGE_NUMBER:
       #        description: 'The Gerrit number'
       #        required: true
@@ -44,13 +44,16 @@ on:
         description: 'Gerrit refspec of change'
         required: false
         type: string
+concurrency:
+  group: ${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   ftc-run:
     runs-on: ubuntu-22.04
 
     steps:
-      # Step 2: Checkout the repository to build
+      # Step 1: Checkout the repository to build
       - name: Checkout Maven Project Repository
         uses: lfit/checkout-gerrit-change-action@v0.5
         with:
@@ -59,45 +62,25 @@ jobs:
           gerrit-project: ${{ inputs.GERRIT_PROJECT }}
           ref: ${{ inputs.GERRIT_BRANCH }}
 
-      # Step 3: Set up JDK for Maven
+      # Step 2: Set up JDK for Maven
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'  # Or 'zulu' or 'adopt'
 
-      # Step 4: Run Maven build
-      - name: print docker image before
-        run: |
-          echo " printing docker images before"
-          docker images 
-
-      # Step 5: Run Maven build
+      # Step 3: Run Maven build
       - name: Build with Maven
         run: |
           cd a1-policy-management
           mvn clean install -DskipTests=true
-      
-      # Step 6: Run Maven build
-      - name: print docker image
-        run: |
-          echo " printing docker images"
-          docker images
 
-      # Step 7: Run FTC Job
+      # Step 4: Run FTC Job
       - name: Run FTC job
         # working-directory: ${{ github.workspace }}/test/auto-test
         run: |
           git clone https://gerrit.o-ran-sc.org/r/nonrtric
           cd nonrtric/test/auto-test
-          git pull https://gerrit.o-ran-sc.org/r/nonrtric refs/changes/64/13564/6
+          git pull https://gerrit.o-ran-sc.org/r/nonrtric refs/changes/64/13564/7
           chmod +x ./onap-verify-jobs.sh
           sudo bash ./onap-verify-jobs.sh
-          
-      # Step 8: Run Maven build
-      - name: print docker logs
-        run: |
-          echo " printing docker logs of policy management service"
-          docker ps 
-          echo "--------------------------------------"
-          docker logs policymanagementservice
