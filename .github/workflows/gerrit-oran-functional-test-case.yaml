@@ -84,5 +84,5 @@ jobs:
       - name: uploading the logs
         uses: actions/upload-artifact@v4
         with:
-          name: my-artifact
+          name: FTC10-Logs
           path: nonrtric/test/auto-test/logs/FTC10
