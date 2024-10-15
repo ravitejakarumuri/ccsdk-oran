@@ -85,6 +85,7 @@ jobs:
         run: |
           git clone https://gerrit.o-ran-sc.org/r/nonrtric
           cd nonrtric/test/auto-test
+          git pull https://gerrit.o-ran-sc.org/r/nonrtric refs/changes/17/13617/1
           chmod +x ./onap-verify-jobs.sh
           sudo bash ./onap-verify-jobs.sh
 
