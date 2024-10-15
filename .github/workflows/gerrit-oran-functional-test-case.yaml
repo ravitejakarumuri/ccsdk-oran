@@ -48,7 +48,7 @@ concurrency:
 
 jobs:
   ftc-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout the repository to build
@@ -71,14 +71,7 @@ jobs:
       - name: Build a1-policy-management image with Maven
         run: |
           cd a1-policy-management
-          mvn clean install -Dmaven.test.skip=true
-
-      # Step 3: Run Maven build
-      - name: docker images list
-        run: |
-          echo "Docker images list before"
-          docker images
-          echo "Docker images list after"
+          mvn clean install -Dmaven.test.skip=true -Ddocker.skip.push=true
 
       # Step 4: Run FTC Job
       - name: Run FTC tests with the local a1-policy image
@@ -89,8 +82,10 @@ jobs:
           chmod +x ./onap-verify-jobs.sh
           sudo bash ./onap-verify-jobs.sh
 
+      # Step 5: uploading the logs
       - name: uploading the logs
         uses: actions/upload-artifact@v4
         with:
           name: FTC10-Logs
+          retention-days: 3
           path: nonrtric/test/auto-test/logs/FTC10
