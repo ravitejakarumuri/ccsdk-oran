@@ -73,6 +73,13 @@ jobs:
           cd a1-policy-management
           mvn clean install -DskipTests=true
 
+      # Step 3: Run Maven build
+      - name: docker images list
+        run: |
+          echo "Docker images list before"
+          docker images
+          echo "Docker images list after"
+
       # Step 4: Run FTC Job
       - name: Run FTC tests with the local a1-policy image
         run: |
