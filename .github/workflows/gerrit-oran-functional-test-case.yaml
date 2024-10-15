@@ -71,7 +71,7 @@ jobs:
       - name: Build a1-policy-management image with Maven
         run: |
           cd a1-policy-management
-          mvn clean install -DskipTests=true
+          mvn clean install -Dmaven.test.skip=true
 
       # Step 3: Run Maven build
       - name: docker images list
