@@ -88,4 +88,4 @@ jobs:
         with:
           name: FTC10-Logs
           retention-days: 3
-          path: nonrtric/test/auto-test/logs/FTC10
+          path: nonrtric/test/auto-test/logs
